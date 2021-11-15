@@ -45,7 +45,9 @@ set(root_dependent_tests
   write_timed.cpp
   read_timed.cpp
   read_frame.cpp
-  write_frame_root.cpp)
+  write_frame_root.cpp
+  write_rntuple.cpp
+)
 set(root_libs TestDataModelDict podio::podioRootIO)
 foreach( sourcefile ${root_dependent_tests} )
   CREATE_PODIO_TEST(${sourcefile} "${root_libs}")
