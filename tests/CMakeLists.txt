@@ -47,6 +47,7 @@ set(root_dependent_tests
   read_frame.cpp
   write_frame_root.cpp
   write_rntuple.cpp
+  read_rntuple.cpp
 )
 set(root_libs TestDataModelDict podio::podioRootIO)
 foreach( sourcefile ${root_dependent_tests} )
@@ -149,6 +150,7 @@ set_property(TEST read-multiple PROPERTY DEPENDS write)
 set_property(TEST read_and_write PROPERTY DEPENDS write)
 set_property(TEST read_timed PROPERTY DEPENDS write_timed)
 set_property(TEST read_frame PROPERTY DEPENDS write_frame_root)
+set_property(TEST read_rntuple PROPERTY DEPENDS write_rntuple)
 
 add_executable(check_benchmark_outputs check_benchmark_outputs.cpp)
 target_link_libraries(check_benchmark_outputs ROOT::Tree)
