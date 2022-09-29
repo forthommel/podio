@@ -6,16 +6,16 @@
 #include "podio/GenericParameters.h"
 #include "podio/ROOTNTupleReader.h"
 
+#include <memory>
+
 // ROOT specific includes
 #include "TChain.h"
 #include "TClass.h"
 #include "TFile.h"
 #include "TTree.h"
 #include "TTreeCache.h"
-#include <memory>
 
 namespace podio {
-
 
 GenericParameters* ROOTNTupleReader::readEventMetaData() {
   auto* emd = new GenericParameters();
@@ -113,7 +113,8 @@ CollectionBase* ROOTNTupleReader::getCollection(const std::pair<std::string, Col
 }
 
 CollectionBase* ROOTNTupleReader::readCollectionData(const root_utils::CollectionBranches& branches,
-                                               CollectionBase* collection, Long64_t entry, const std::string& name) {
+                                                     CollectionBase* collection, Long64_t entry,
+                                                     const std::string& name) {
   // Read all data
   //if (branches.data) {
   //  branches.data->GetEntry(entry);
@@ -149,8 +150,9 @@ void ROOTNTupleReader::openFiles(const std::vector<std::string>& filenames) {
   //// NOTE: This is a small pessimization, if we do not read all collections
   //// afterwards, but it makes the handling much easier in general
   //auto metadatatree = static_cast<TTree*>(m_chain->GetFile()->Get("metadata"));
-  //m_table = new CollectionIDTable();
-  //metadatatree->SetBranchAddress("CollectionIDs", &m_table);
+  //m_table = std::make_shared<CollectionIDTable>();
+  //auto* table = m_table.get();
+  //metadatatree->SetBranchAddress("CollectionIDs", &table);
 
   //podio::version::Version* versionPtr{nullptr};
   //if (auto* versionBranch = root_utils::getBranch(metadatatree, "PodioVersion")) {

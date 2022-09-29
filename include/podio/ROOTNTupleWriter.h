@@ -1,21 +1,19 @@
 #ifndef RNTUPLEWRITER_H
 #define RNTUPLEWRITER_H
 
-#include "podio/CollectionBase.h"
-#include "podio/EventStore.h"
-#include "podio/CollectionBranches.h"
-
-#include "TBranch.h"
 #include <ROOT/RNTuple.hxx>
 #include <ROOT/RNTupleModel.hxx>
-
-#include <string>
-#include <vector>
+#include <cstdint>
 #include <iostream>
+#include <string>
 #include <string_view>
 #include <utility>
-#include <cstdint>
+#include <vector>
 
+#include "TBranch.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionBranches.h"
+#include "podio/EventStore.h"
 
 namespace rnt = ROOT::Experimental;
 // forward declarations
@@ -23,8 +21,8 @@ class TFile;
 class TTree;
 
 namespace podio {
-  class ROOTNTupleWriter {
-  public:
+class ROOTNTupleWriter {
+public:
   ROOTNTupleWriter(const std::string& filename, EventStore* store);
   ~ROOTNTupleWriter();
 
@@ -37,27 +35,26 @@ namespace podio {
   using StoreCollection = std::pair<const std::string&, podio::CollectionBase*>;
   void createModels(const std::vector<StoreCollection>& collections);
 
-  private:
-  std::unique_ptr< rnt::RNTupleModel > m_events;
-  std::unique_ptr< rnt::RNTupleModel > m_metadata;
-  std::unique_ptr< rnt::RNTupleModel > m_runMD;
-  std::unique_ptr< rnt::RNTupleModel > m_colMD;
-  std::unique_ptr< rnt::RNTupleModel > m_evtMD;
+private:
+  std::unique_ptr<rnt::RNTupleModel> m_events{nullptr};
+  std::unique_ptr<rnt::RNTupleModel> m_metadata{nullptr};
+  std::unique_ptr<rnt::RNTupleModel> m_runMD{nullptr};
+  std::unique_ptr<rnt::RNTupleModel> m_colMD{nullptr};
+  std::unique_ptr<rnt::RNTupleModel> m_evtMD{nullptr};
 
-  TFile* m_file;
+  TFile* m_file{nullptr};
 
   std::vector<std::string> m_collectionsToWrite;
 
-  EventStore* m_store;
-  bool m_firstEvent;
-  std::unique_ptr< rnt::RNTupleWriter > m_ntuple_events;
-  std::unique_ptr< rnt::RNTupleWriter > m_ntuple_metadata;
-  std::unique_ptr< rnt::RNTupleWriter > m_ntuple_runMD;
-  std::unique_ptr< rnt::RNTupleWriter > m_ntuple_colMD;
-  std::unique_ptr< rnt::RNTupleWriter > m_ntuple_evtMD;
-  };
+  EventStore* m_store{nullptr};
+  bool m_firstEvent{true};
+  std::unique_ptr<rnt::RNTupleWriter> m_ntuple_events{nullptr};
+  std::unique_ptr<rnt::RNTupleWriter> m_ntuple_metadata{nullptr};
+  std::unique_ptr<rnt::RNTupleWriter> m_ntuple_runMD{nullptr};
+  std::unique_ptr<rnt::RNTupleWriter> m_ntuple_colMD{nullptr};
+  std::unique_ptr<rnt::RNTupleWriter> m_ntuple_evtMD{nullptr};
+};
 
-} //namespace podio
+} // namespace podio
 
-#endif //RNTUPLEWRITER_H
-
+#endif // RNTUPLEWRITER_H

@@ -13,6 +13,8 @@ SET(root_sources
   ROOTReader.cc
   ROOTFrameWriter.cc
   ROOTFrameReader.cc
+  ROOTNTupleWriter.cc
+  ROOTNTupleReader.cc
 )
 
 SET(sio_sources
